@@ -41,11 +41,11 @@ def start():
     """
     print(json.dumps(data))
 
-    color = "#00FF00"
+    color = "#00000"
 
     return start_response(color)
 
-
+i = 0
 @bottle.post('/move')
 def move():
     data = bottle.request.json
@@ -57,7 +57,8 @@ def move():
     print(json.dumps(data))
 
     directions = ['up', 'down', 'left', 'right']
-    direction = random.choice(directions)
+    direction = i%4
+    i += 1
 
     return move_response(direction)
 
