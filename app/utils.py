@@ -135,7 +135,7 @@ def which_way(data, food):
     print('*** Super safe head up')
     return 'up'
   elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']):
-    print('*** Best move ' + best_move + 'to ' + best_move_coords['x'] + ',' + best_move_coords['y'])
+    print('*** Best move ' + best_move + 'to ' + str(best_move_coords['x']) + ',' + str(best_move_coords['y']))
     return best_move
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     print('*** Safe food right')
