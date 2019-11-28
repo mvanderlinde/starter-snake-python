@@ -5,7 +5,7 @@ def distance(me, thing):
   return x_distance + y_distance
 
 def within_one(body_part, x, y):
-    return (abs(body_part['x'] - x) > 1 and abs(body_part['y'] - y) > 1)
+    return (abs(body_part['x'] - x) <= 2 and abs(body_part['y'] - y) <= 2)
 
 def is_safe(data, x, y, check_super_safe=False):
   if x >= (data['board']['height']-1) or y >= (data['board']['height']-1) or x < 1 or y < 1:
