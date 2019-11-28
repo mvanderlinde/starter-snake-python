@@ -32,7 +32,7 @@ def which_way(data, food):
     return 'right'
   elif me['x'] > food['x'] and is_safe(data, me['x']-1, me['y']):
     return 'left'
-  elif me['y'] < food['y]'] and is_safe(data, me['x'], me['y']+1):
+  elif me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1):
     return 'up'
   else:
     return 'down'
