@@ -27,19 +27,31 @@ def within_one(body_part, x, y, me):
         best_move_distance = abs(x_distance)
         if x_distance > 0:
           best_move = 'left'
+
+          best_move_coords = {
+            'x': x,
+            'y': y
+          }
         else:
           best_move = 'right'
+          best_move_coords = {
+            'x': x,
+            'y': y
+          }
       else:
         best_move_distance = abs(y_distance)
         if y_distance > 0:
           best_move = 'up'
+          best_move_coords = {
+            'x': x,
+            'y': y
+          }
         else:
           best_move = 'down'
-
-      best_move_coords = {
-        'x': x,
-        'y': y
-      }
+          best_move_coords = {
+            'x': x,
+            'y': y
+          }
 
   return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
 
