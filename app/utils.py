@@ -5,7 +5,7 @@ def distance(me, thing):
   return x_distance + y_distance
 
 def is_safe(data, x, y):
-  for snake in data['snakes']:
+  for snake in data['board']['snakes']:
     for body_part in snake['body']:
       if body_part['x'] == x or body_part['y'] == y:
         return false
@@ -16,7 +16,7 @@ def find_closest_food(data):
   closest_distance = 1000 # Set closest to large number to start
   closest_food = None
 
-  for food in data['food']:
+  for food in data['board']['food']:
     current_distance = distance(data['you']['body'][0], food)
 
     if current_distance < closest_distance:
