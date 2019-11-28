@@ -106,6 +106,18 @@ def which_way(data, food):
   elif is_safe(data, me['x'], me['y']-1, check_super_safe=True):
     print('*** Super safe up')
     return 'up'
+  elif is_safe(data, me['x']+1, me['y'], check_head_safe=True):
+    print('*** Super safe head right')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y'], check_head_safe=True):
+    print('*** Super safe head left')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1, check_head_safe=True):
+    print('*** Super safe head down')
+    return 'down'
+  elif is_safe(data, me['x'], me['y']-1, check_head_safe=True):
+    print('*** Super safe head up')
+    return 'up'
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     print('*** Safe food right')
     return 'right'
