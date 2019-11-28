@@ -4,7 +4,7 @@ def distance(me, thing):
 
   return x_distance + y_distance
 
-def within_one(body_part, x, y, me=):
+def within_one(body_part, x, y, me):
   for my_body_part in me['body']:
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
       return False
