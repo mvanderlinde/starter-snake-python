@@ -23,7 +23,7 @@ def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
         return False
       elif check_head_safe and within_one(snake['body'][0], x, y, {'body': [me['body'][0]]}):
         return False
-      elif body_part['x'] == x and body_part['y'] == y and len(me['body']) <= len(snake['body']):
+      elif body_part['x'] == x and body_part['y'] == y and (body_part['x'] != snake['body'][0]['x'] or body_part['y'] != snake['body'][0]['y'] or len(me['body']) <= len(snake['body'])):
         return False
 
   return True
