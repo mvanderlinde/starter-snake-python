@@ -12,6 +12,36 @@ def distance(me, thing):
 
   return x_distance + y_distance
 
+def has_room(data, me, direction):
+  available_space = 0
+
+  my_length = len(me['body'])
+  my_head = me['body'][0]
+  if direction == 'left':
+    for x in range(1,int(my_length/2)):
+      for y in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']-y):
+          available_space = available_space + 1
+  elif direction == 'right':
+    for x in range(1,int(my_length/2)):
+      for y in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']+x, my_head['y']-y):
+          available_space = available_space + 1
+  elif direction == 'down':
+    for y in range(1,int(my_length/2)):
+      for x in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']+y):
+          available_space = available_space + 1
+  else:
+    for y in range(1,int(my_length/2)):
+      for x in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']-y):
+          available_space = available_space + 1
+
+  return available_space >= (my_length/2)
+
+
+
 def within_one(body_part, x, y, me):
   for my_body_part in me['body']:
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
@@ -109,7 +139,79 @@ def which_way(data, food):
   }
   closest_snake_distance = 1000
 
-  if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
+  if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True) and has_room(data, data['you'], 'right'):
+    print('*** Super safe food right with room')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True) and has_room(data, data['you'], 'left'):
+    print('*** Super safe food left with room')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_super_safe=True) and has_room(data, data['you'], 'down'):
+    print('*** Super safe food down with room')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True) and has_room(data, data['you'], 'up'):
+    print('*** Super safe food up with room')
+    return 'up'
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
+    print('*** Super safe head food right with room')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
+    print('*** Super safe head food left with room')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
+    print('*** Super safe head food down with room')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1) and has_room(data, data['you'], 'up'):
+    print('*** Super safe head food up with room')
+    return 'up'
+  elif is_safe(data, me['x']+1, me['y'], check_super_safe=True) and has_room(data, data['you'], 'right'):
+    print('*** Super safe right with room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y'], check_super_safe=True) and has_room(data, data['you'], 'left'):
+    print('*** Super safe left with room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1, check_super_safe=True) and has_room(data, data['you'], 'down'):
+    print('*** Super safe down with room')
+    return 'down'
+  elif is_safe(data, me['x'], me['y']-1, check_super_safe=True) and has_room(data, data['you'], 'up'):
+    print('*** Super safe up with room')
+    return 'up'
+  elif is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
+    print('*** Super safe head right with room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
+    print('*** Super safe head left with room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
+    print('*** Super safe head down with room')
+    return 'down'
+  elif is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1) and has_room(data, data['you'], 'up'):
+    print('*** Super safe head up with room')
+    return 'up'
+  elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']) and has_room(data, data['you'], best_move):
+    print('*** Best move ' + best_move + ' to ' + str(best_move_coords['x']) + ',' + str(best_move_coords['y']) + ' with room')
+    return best_move
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
+    print('*** Safe food right with room')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
+    print('*** Safe food left with room')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
+    print('*** Safe food down with room')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1) and has_room(data, data['you'], 'up'):
+    print('*** Safe food up with room')
+    return 'up'
+  elif is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
+    print('*** Safe right with room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
+    print('*** Safe left with room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
+    print('*** Safe down with room')
+    return 'down'
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
     return 'right'
   elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True):
