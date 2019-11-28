@@ -57,7 +57,7 @@ def move():
     print(json.dumps(data))
 
     directions = ['up', 'down', 'left', 'right']
-    direction = i%4
+    direction = directions[i%4]
     i += 1
 
     return move_response(direction)
