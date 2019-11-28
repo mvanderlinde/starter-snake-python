@@ -16,6 +16,7 @@ def within_one(body_part, x, y, me):
     y_distance = body_part['y'] - y
 
     global best_move
+    global best_move_distance
     if abs(x_distance) < best_move_distance or abs(y_distance) < best_move_distance:
       if abs(x_distance) > abs(y_distance):
         best_move_distance = abs(x_distance)
@@ -65,7 +66,9 @@ def which_way(data, food):
   me = data['you']['body'][0]
 
   global best_move
+  global best_move_distance
   best_move = None
+  best_move_distance = 1000
 
   if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
