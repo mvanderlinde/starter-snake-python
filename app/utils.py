@@ -4,14 +4,14 @@ def distance(me, thing):
 
   return x_distance + y_distance
 
-def within_one(body_part, x, y, me):
+def within_one(body_part, x, y, me=):
   for my_body_part in me['body']:
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
       return False
 
   return (abs(body_part['x'] - x) <= 2 and abs(body_part['y'] - y) <= 2)
 
-def is_safe(data, x, y, check_super_safe=False):
+def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
   if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
     return False
 
@@ -20,6 +20,8 @@ def is_safe(data, x, y, check_super_safe=False):
   for snake in data['board']['snakes']:
     for body_part in snake['body']:
       if check_super_safe and within_one(body_part, x, y, me):
+        return False
+      elif check_head_safe and within_one(snake_body[0], x, y, {'me': {'body': [me[0]]}}):
         return False
       elif body_part['x'] == x and body_part['y'] == y:
         return False
@@ -42,17 +44,29 @@ def find_closest_food(data):
 def which_way(data, food):
   me = data['you']['body'][0]
 
-  if me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
+  if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
     return 'right'
-  elif me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True):
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True):
     print('*** Super safe food left')
     return 'left'
-  elif me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_super_safe=True):
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_super_safe=True):
     print('*** Super safe food down')
     return 'down'
-  elif me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True):
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True):
     print('*** Super safe food up')
+    return 'up'
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_head_safe=True):
+    print('*** Super safe head food right')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_head_safe=True):
+    print('*** Super safe head food left')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_head_safe=True):
+    print('*** Super safe head food down')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_head_safe=True):
+    print('*** Super safe head food up')
     return 'up'
   elif is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe right')
@@ -66,16 +80,16 @@ def which_way(data, food):
   elif is_safe(data, me['x'], me['y']-1, check_super_safe=True):
     print('*** Super safe up')
     return 'up'
-  elif me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     print('*** Safe food right')
     return 'right'
-  elif me['x'] > food['x'] and is_safe(data, me['x']-1, me['y']):
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y']):
     print('*** Safe food left')
     return 'left'
-  elif me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1):
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1):
     print('*** Safe food down')
     return 'down'
-  elif me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1):
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1):
     print('*** Safe food up')
     return 'up'
   elif is_safe(data, me['x']+1, me['y']):
