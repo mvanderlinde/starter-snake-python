@@ -17,7 +17,7 @@ def is_safe(data, x, y, check_super_safe=False):
         return True
       elif check_super_safe and within_one(bodt_part, x, y):
         return False
-      else body_part['x'] == x and body_part['y'] == y:
+      elif body_part['x'] == x and body_part['y'] == y:
         return False
 
   return True
