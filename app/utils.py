@@ -4,13 +4,20 @@ def distance(me, thing):
 
   return x_distance + y_distance
 
-def is_safe(data, x, y):
+def within_one(body_part, x, y):
+    return (abs(body_part['x'] - x) > 1 and abs(body_part['y'] - y) > 1)
+
+def is_safe(data, x, y, check_super_safe=False):
   if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
     return False
 
   for snake in data['board']['snakes']:
     for body_part in snake['body']:
-      if body_part['x'] == x and body_part['y'] == y:
+      if check_super_safe and not within_one(body_part, x, y):
+        return True
+      elif check_super_safe and within_one(bodt_part, x, y):
+        return False
+      else body_part['x'] == x and body_part['y'] == y:
         return False
 
   return True
@@ -31,7 +38,15 @@ def find_closest_food(data):
 def which_way(data, food):
   me = data['you']['body'][0]
 
-  if me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
+  if me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
+    return 'right'
+  elif me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True):
+    return 'left'
+  elif me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_super_safe=True):
+    return 'down'
+  elif me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True):
+    return 'up'
+  elif me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     return 'right'
   elif me['x'] > food['x'] and is_safe(data, me['x']-1, me['y']):
     return 'left'
