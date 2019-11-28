@@ -1,3 +1,6 @@
+best_move = 'up'
+best_move_distance = 1000
+
 def distance(me, thing):
   x_distance = abs(me['x']-thing['x'])
   y_distance = abs(me['y']-thing['y'])
@@ -9,7 +12,24 @@ def within_one(body_part, x, y, me):
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
       return False
 
-  return (abs(body_part['x'] - x) <= 2 and abs(body_part['y'] - y) <= 2)
+      x_distance = body_part['x'] - x
+      y_distance = body_part['y'] - y
+
+      global best_move
+      if abs(x_distance) < best_move_distance or abs(y_distance) < best_move_distance:
+        if abs(x_distance) > abs(y_distance):
+          best_move_distance = abs(x_distance)
+          if x_distance > 0:
+            best_move = 'left'
+          else: best_move = 'right'
+        else:
+          best_move_distance = abs(y_distance)
+          if y_distance > 0:
+            best_move = 'up'
+          else:
+            best_move = 'down'
+
+  return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
 
 def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
   if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
@@ -43,6 +63,9 @@ def find_closest_food(data):
 
 def which_way(data, food):
   me = data['you']['body'][0]
+
+  global best_move
+  best_move = None
 
   if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
@@ -92,6 +115,8 @@ def which_way(data, food):
   elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1):
     print('*** Safe food up')
     return 'up'
+  elif best_move:
+    return best_move
   elif is_safe(data, me['x']+1, me['y']):
     print('*** Safe right')
     return 'right'
