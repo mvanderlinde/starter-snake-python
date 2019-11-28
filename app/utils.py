@@ -5,7 +5,7 @@ def distance(me, thing):
   return x_distance + y_distance
 
 def is_safe(data, x, y):
-  if x >= data['board']['height'] or y >= data['board']['height']:
+  if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
     return False
 
   for snake in data['board']['snakes']:
