@@ -5,6 +5,8 @@ import bottle
 
 from api import ping_response, start_response, move_response, end_response
 
+i = 0
+
 @bottle.route('/')
 def index():
     return '''
@@ -33,6 +35,8 @@ def ping():
 @bottle.post('/start')
 def start():
     data = bottle.request.json
+    global i
+    i = 0
 
     """
     TODO: If you intend to have a stateful snake AI,
@@ -45,10 +49,10 @@ def start():
 
     return start_response(color)
 
-i = 0
 @bottle.post('/move')
 def move():
     data = bottle.request.json
+    global i
 
     """
     TODO: Using the data from the endpoint request object, your
@@ -56,7 +60,7 @@ def move():
     """
     print(json.dumps(data))
 
-    directions = ['up', 'down', 'left', 'right']
+    directions = ['up', 'right', 'down', 'left']
     direction = directions[i%4]
     i += 1
 
