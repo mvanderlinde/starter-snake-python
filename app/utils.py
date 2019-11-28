@@ -8,9 +8,9 @@ def is_safe(data, x, y):
   for snake in data['board']['snakes']:
     for body_part in snake['body']:
       if body_part['x'] == x or body_part['y'] == y:
-        return false
+        return False
 
-  return true
+  return True
 
 def find_closest_food(data):
   closest_distance = 1000 # Set closest to large number to start
