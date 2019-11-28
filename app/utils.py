@@ -1,5 +1,5 @@
 best_move = 'up'
-best_move_distance = 1000
+best_move_distance = 0
 best_move_coords = {
   'x': 0,
   'y': 0
@@ -22,7 +22,7 @@ def within_one(body_part, x, y, me):
     global best_move
     global best_move_distance
     global best_move_coords
-    if abs(x_distance) < best_move_distance or abs(y_distance) < best_move_distance:
+    if abs(x_distance) > best_move_distance or abs(y_distance) > best_move_distance:
       if abs(x_distance) > abs(y_distance):
         best_move_distance = abs(x_distance)
         if x_distance > 0:
@@ -80,7 +80,7 @@ def which_way(data, food):
   global best_move_distance
   global best_move_coords
   best_move = None
-  best_move_distance = 1000
+  best_move_distance = 0
   best_move_coords = {
     'x': 0,
     'y': 0
