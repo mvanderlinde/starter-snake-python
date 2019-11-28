@@ -86,7 +86,7 @@ def within_one(body_part, x, y, me):
               'y': me['body'][0]['y']+1
             }
 
-  return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
+  return (abs(x_distance) <= 1 and abs(y_distance) <= 1)
 
 def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
   if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
