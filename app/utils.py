@@ -44,7 +44,7 @@ def within_one(body_part, x, y, me):
   return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
 
 def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
-  if x >= data['board']['height'] or y >= (data['board']['height']-1) or x < 0 or y < 0:
+  if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
     return False
 
   me = data['you']
@@ -134,6 +134,9 @@ def which_way(data, food):
   elif is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1):
     print('*** Super safe head up')
     return 'up'
+  elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']):
+    print('*** Best move ' + best_move)
+    return best_move
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     print('*** Safe food right')
     return 'right'
@@ -146,9 +149,6 @@ def which_way(data, food):
   elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1):
     print('*** Safe food up')
     return 'up'
-  elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']):
-    print('*** Best move ' + best_move)
-    return best_move
   elif is_safe(data, me['x']+1, me['y']):
     print('*** Safe right')
     return 'right'
