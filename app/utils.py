@@ -82,16 +82,16 @@ def which_way(data, food):
   elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True):
     print('*** Super safe food up')
     return 'up'
-  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_head_safe=True):
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']):
     print('*** Super safe head food right')
     return 'right'
-  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_head_safe=True):
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']):
     print('*** Super safe head food left')
     return 'left'
-  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_head_safe=True):
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1):
     print('*** Super safe head food down')
     return 'down'
-  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_head_safe=True):
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1):
     print('*** Super safe head food up')
     return 'up'
   elif is_safe(data, me['x']+1, me['y'], check_super_safe=True):
@@ -106,16 +106,16 @@ def which_way(data, food):
   elif is_safe(data, me['x'], me['y']-1, check_super_safe=True):
     print('*** Super safe up')
     return 'up'
-  elif is_safe(data, me['x']+1, me['y'], check_head_safe=True):
+  elif is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']):
     print('*** Super safe head right')
     return 'right'
-  elif is_safe(data, me['x']-1, me['y'], check_head_safe=True):
+  elif is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']):
     print('*** Super safe head left')
     return 'left'
-  elif is_safe(data, me['x'], me['y']+1, check_head_safe=True):
+  elif is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1):
     print('*** Super safe head down')
     return 'down'
-  elif is_safe(data, me['x'], me['y']-1, check_head_safe=True):
+  elif is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1):
     print('*** Super safe head up')
     return 'up'
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
