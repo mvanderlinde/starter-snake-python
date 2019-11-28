@@ -1,3 +1,4 @@
+closest_snake_distance = 1000
 best_move = 'up'
 best_move_distance = 0
 best_move_coords = {
@@ -22,35 +23,38 @@ def within_one(body_part, x, y, me):
     global best_move
     global best_move_distance
     global best_move_coords
-    if abs(x_distance) > best_move_distance or abs(y_distance) > best_move_distance:
-      if abs(x_distance) > abs(y_distance):
-        best_move_distance = abs(x_distance)
-        if x_distance > 0:
-          best_move = 'left'
-          best_move_coords = {
-            'x': me['body'][0]['x']-1,
-            'y': me['body'][0]['y']
-          }
+    global closest_snake_distance
+
+    if closest_snake_distance == (abs(x_distance) + abs(y_distance)):
+      if abs(x_distance) > best_move_distance or abs(y_distance) > best_move_distance:
+        if abs(x_distance) > abs(y_distance):
+          best_move_distance = abs(x_distance)
+          if x_distance > 0:
+            best_move = 'left'
+            best_move_coords = {
+              'x': me['body'][0]['x']-1,
+              'y': me['body'][0]['y']
+            }
+          else:
+            best_move = 'right'
+            best_move_coords = {
+              'x': me['body'][0]['x']+1,
+              'y': me['body'][0]['y']
+            }
         else:
-          best_move = 'right'
-          best_move_coords = {
-            'x': me['body'][0]['x']+1,
-            'y': me['body'][0]['y']
-          }
-      else:
-        best_move_distance = abs(y_distance)
-        if y_distance > 0:
-          best_move = 'up'
-          best_move_coords = {
-            'x': me['body'][0]['x'],
-            'y': me['body'][0]['y']-1
-          }
-        else:
-          best_move = 'down'
-          best_move_coords = {
-            'x': me['body'][0]['x'],
-            'y': me['body'][0]['y']+1
-          }
+          best_move_distance = abs(y_distance)
+          if y_distance > 0:
+            best_move = 'up'
+            best_move_coords = {
+              'x': me['body'][0]['x'],
+              'y': me['body'][0]['y']-1
+            }
+          else:
+            best_move = 'down'
+            best_move_coords = {
+              'x': me['body'][0]['x'],
+              'y': me['body'][0]['y']+1
+            }
 
   return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
 
@@ -60,7 +64,13 @@ def is_safe(data, x, y, check_super_safe=False, check_head_safe=False):
 
   me = data['you']
 
+  global closest_snake_distance
+
   for snake in data['board']['snakes']:
+    snake_distance = abs(me['body'][0]['x'] - snake['body'][0]['x']) + abs(me['body'][0]['y'] - snake['body'][0]['y'])
+    if snake_distance < closest_snake_distance:
+      closest_snake_distance = snake_distance
+
     for body_part in snake['body']:
       if check_super_safe and within_one(body_part, x, y, me) and len(me['body']) <= len(snake['body']):
         return False
@@ -90,12 +100,14 @@ def which_way(data, food):
   global best_move
   global best_move_distance
   global best_move_coords
+  global closest_snake_distance
   best_move = None
   best_move_distance = 0
   best_move_coords = {
     'x': 0,
     'y': 0
   }
+  closest_snake_distance = 1000
 
   if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
