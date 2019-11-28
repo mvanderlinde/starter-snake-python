@@ -17,7 +17,7 @@ def is_safe(data, x, y, check_super_safe=False):
 
   for snake in data['board']['snakes']:
     for body_part in snake['body']:
-      elif check_super_safe and within_one(body_part, x, y):
+      if check_super_safe and within_one(body_part, x, y):
         return False
       elif body_part['x'] == x and body_part['y'] == y:
         return False
