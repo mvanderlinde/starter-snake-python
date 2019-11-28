@@ -6,7 +6,7 @@ def distance(me, thing):
 
 def within_one(body_part, x, y, me):
   for my_body_part in me['body']:
-    if my_body_part['x'] == x and my_body_part['y']:
+    if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
       return False
 
   return (abs(body_part['x'] - x) <= 2 and abs(body_part['y'] - y) <= 2)
