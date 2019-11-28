@@ -5,6 +5,8 @@ import bottle
 
 from api import ping_response, start_response, move_response, end_response
 
+from utils import find_closest_food, which_way
+
 @bottle.route('/')
 def index():
     return '''
@@ -46,7 +48,6 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-    global i
 
     """
     TODO: Using the data from the endpoint request object, your
@@ -54,8 +55,8 @@ def move():
     """
     print(json.dumps(data))
 
-    directions = ['up', 'right', 'down', 'left']
-    direction = directions[data['turn']%4]
+    closest_food = find_closest_food(data)
+    direction = which_way(data, closest_food)
 
     return move_response(direction)
 
