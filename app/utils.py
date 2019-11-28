@@ -12,22 +12,22 @@ def within_one(body_part, x, y, me):
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
       return False
 
-      x_distance = body_part['x'] - x
-      y_distance = body_part['y'] - y
+    x_distance = body_part['x'] - x
+    y_distance = body_part['y'] - y
 
-      global best_move
-      if abs(x_distance) < best_move_distance or abs(y_distance) < best_move_distance:
-        if abs(x_distance) > abs(y_distance):
-          best_move_distance = abs(x_distance)
-          if x_distance > 0:
-            best_move = 'left'
-          else: best_move = 'right'
+    global best_move
+    if abs(x_distance) < best_move_distance or abs(y_distance) < best_move_distance:
+      if abs(x_distance) > abs(y_distance):
+        best_move_distance = abs(x_distance)
+        if x_distance > 0:
+          best_move = 'left'
+        else: best_move = 'right'
+      else:
+        best_move_distance = abs(y_distance)
+        if y_distance > 0:
+          best_move = 'up'
         else:
-          best_move_distance = abs(y_distance)
-          if y_distance > 0:
-            best_move = 'up'
-          else:
-            best_move = 'down'
+          best_move = 'down'
 
   return (abs(x_distance) <= 2 and abs(y_distance) <= 2)
 
