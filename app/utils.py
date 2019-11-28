@@ -38,7 +38,7 @@ def has_room(data, me, direction):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
           available_space = available_space + 1
 
-  return available_space >= (my_length/2)
+  return available_space >= my_length
 
 
 
