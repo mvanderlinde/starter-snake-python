@@ -12,7 +12,7 @@ def within_one(body_part, x, y, me):
   return (abs(body_part['x'] - x) <= 2 and abs(body_part['y'] - y) <= 2)
 
 def is_safe(data, x, y, check_super_safe=False):
-  if x >= (data['board']['height']-1) or y >= (data['board']['height']-1) or x < 1 or y < 1:
+  if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
     return False
 
   me = data['you']
