@@ -7,7 +7,7 @@ def distance(me, thing):
 def is_safe(data, x, y):
   for snake in data['board']['snakes']:
     for body_part in snake['body']:
-      if body_part['x'] == x or body_part['y'] == y:
+      if body_part['x'] and x or body_part['y'] == y:
         return False
 
   return True
