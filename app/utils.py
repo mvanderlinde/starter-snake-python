@@ -8,7 +8,7 @@ def within_one(body_part, x, y):
     return (abs(body_part['x'] - x) > 1 and abs(body_part['y'] - y) > 1)
 
 def is_safe(data, x, y, check_super_safe=False):
-  if x >= data['board']['height'] or y >= data['board']['height'] or x < 0 or y < 0:
+  if x >= (data['board']['height']-1) or y >= (data['board']['height']-1) or x < 1 or y < 1:
     return False
 
   for snake in data['board']['snakes']:
