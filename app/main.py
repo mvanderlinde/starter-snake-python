@@ -43,7 +43,8 @@ def start():
     """
     print(json.dumps(data))
 
-    return start_response(random.choice(['#000000', '#ff0000', '#00ff00', '#0000ff', '#ff00ff', '#ffff00', '#00ffff', '#ffffff']), 'silly', 'skinny')
+    #return start_response(random.choice(['#000000', '#f1f1f1', '#ff0000', '#00ff00', '#0000ff', '#ff00ff', '#ffff00', '#00ffff', '#ffffff']), 'silly', 'skinny')
+    return start_response('#f1f1f1', 'silly', 'skinny')
 
 @bottle.post('/move')
 def move():
