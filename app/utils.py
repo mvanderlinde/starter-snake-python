@@ -68,6 +68,34 @@ def has_some_room(data, me, direction):
 
   return available_space >= int(my_length * .75)
 
+def has_half_room(data, me, direction):
+  available_space = 0
+
+  my_length = len(me['body'])
+  my_head = me['body'][0]
+  if direction == 'left':
+    for x in range(1,int(my_length/2)):
+      for y in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']-y):
+          available_space = available_space + 1
+  elif direction == 'right':
+    for x in range(1,int(my_length/2)):
+      for y in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']+x, my_head['y']-y):
+          available_space = available_space + 1
+  elif direction == 'down':
+    for y in range(1,int(my_length/2)):
+      for x in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']+y):
+          available_space = available_space + 1
+  else:
+    for y in range(1,int(my_length/2)):
+      for x in range(int(my_length/2)*-1,int(my_length/2)):
+        if is_safe(data, my_head['x']-x, my_head['y']-y):
+          available_space = available_space + 1
+
+  return available_space >= int(my_length/2)
+
 def within_one(body_part, x, y, me):
   for my_body_part in me['body']:
     if my_body_part['x'] == body_part['x'] and my_body_part['y'] == body_part['y']:
@@ -266,6 +294,57 @@ def which_way(data, food):
     return 'up'
   elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']) and has_some_room(data, data['you'], best_move):
     print('*** Best move ' + best_move + ' to ' + str(best_move_coords['x']) + ',' + str(best_move_coords['y']) + ' with some room')
+    return best_move
+  if food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True) and has_half_room(data, data['you'], 'right'):
+    print('*** Super safe food right with half room')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_super_safe=True) and has_half_room(data, data['you'], 'left'):
+    print('*** Super safe food left with half room')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_super_safe=True) and has_half_room(data, data['you'], 'down'):
+    print('*** Super safe food down with half room')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_super_safe=True) and has_half_room(data, data['you'], 'up'):
+    print('*** Super safe food up with half room')
+    return 'up'
+  elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']) and has_half_room(data, data['you'], 'right'):
+    print('*** Super safe head food right with half room')
+    return 'right'
+  elif food and me['x'] > food['x'] and is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']) and has_half_room(data, data['you'], 'left'):
+    print('*** Super safe head food left with half room')
+    return 'left'
+  elif food and me['y'] < food['y'] and is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1) and has_half_room(data, data['you'], 'down'):
+    print('*** Super safe head food down with half room')
+    return 'down'
+  elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1) and has_half_room(data, data['you'], 'up'):
+    print('*** Super safe head food up with half room')
+    return 'up'
+  elif is_safe(data, me['x']+1, me['y'], check_super_safe=True) and has_half_room(data, data['you'], 'right'):
+    print('*** Super safe right with half room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y'], check_super_safe=True) and has_half_room(data, data['you'], 'left'):
+    print('*** Super safe left with half room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1, check_super_safe=True) and has_half_room(data, data['you'], 'down'):
+    print('*** Super safe down with half room')
+    return 'down'
+  elif is_safe(data, me['x'], me['y']-1, check_super_safe=True) and has_half_room(data, data['you'], 'up'):
+    print('*** Super safe up with half room')
+    return 'up'
+  elif is_safe(data, me['x']+1, me['y'], check_head_safe=True) and is_safe(data, me['x']+1, me['y']) and has_half_room(data, data['you'], 'right'):
+    print('*** Super safe head right with half room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y'], check_head_safe=True) and is_safe(data, me['x']-1, me['y']) and has_half_room(data, data['you'], 'left'):
+    print('*** Super safe head left with half room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1, check_head_safe=True) and is_safe(data, me['x'], me['y']+1) and has_half_room(data, data['you'], 'down'):
+    print('*** Super safe head down with half room')
+    return 'down'
+  elif is_safe(data, me['x'], me['y']-1, check_head_safe=True) and is_safe(data, me['x'], me['y']-1) and has_half_room(data, data['you'], 'up'):
+    print('*** Super safe head up with half room')
+    return 'up'
+  elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']) and has_half_room(data, data['you'], best_move):
+    print('*** Best move ' + best_move + ' to ' + str(best_move_coords['x']) + ',' + str(best_move_coords['y']) + ' with half room')
     return best_move
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y'], check_super_safe=True):
     print('*** Super safe food right')
