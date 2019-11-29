@@ -433,6 +433,24 @@ def which_way(data, food):
   elif best_move and is_safe(data, best_move_coords['x'], best_move_coords['y']):
     print('*** Best move ' + best_move + 'to ' + str(best_move_coords['x']) + ',' + str(best_move_coords['y']))
     return best_move
+  elif is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
+    print('*** Safe right with room')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
+    print('*** Safe left with room')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
+    print('*** Safe down with room')
+    return 'down'
+  elif is_safe(data, me['x']+1, me['y']):
+    print('*** Safe right')
+    return 'right'
+  elif is_safe(data, me['x']-1, me['y']):
+    print('*** Safe left')
+    return 'left'
+  elif is_safe(data, me['x'], me['y']+1):
+    print('*** Safe down')
+    return 'down'
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
     print('*** Safe food right with room')
     return 'right'
@@ -445,15 +463,6 @@ def which_way(data, food):
   elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1) and has_room(data, data['you'], 'up'):
     print('*** Safe food up with room')
     return 'up'
-  elif is_safe(data, me['x']+1, me['y']) and has_room(data, data['you'], 'right'):
-    print('*** Safe right with room')
-    return 'right'
-  elif is_safe(data, me['x']-1, me['y']) and has_room(data, data['you'], 'left'):
-    print('*** Safe left with room')
-    return 'left'
-  elif is_safe(data, me['x'], me['y']+1) and has_room(data, data['you'], 'down'):
-    print('*** Safe down with room')
-    return 'down'
   elif food and me['x'] < food['x'] and is_safe(data, me['x']+1, me['y']):
     print('*** Safe food right')
     return 'right'
@@ -466,15 +475,6 @@ def which_way(data, food):
   elif food and me['y'] > food['y'] and is_safe(data, me['x'], me['y']-1):
     print('*** Safe food up')
     return 'up'
-  elif is_safe(data, me['x']+1, me['y']):
-    print('*** Safe right')
-    return 'right'
-  elif is_safe(data, me['x']-1, me['y']):
-    print('*** Safe left')
-    return 'left'
-  elif is_safe(data, me['x'], me['y']+1):
-    print('*** Safe down')
-    return 'down'
   else:
     print('*** Nothing safe, go up and die')
     return 'up'
