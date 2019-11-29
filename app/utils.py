@@ -18,21 +18,33 @@ def has_room(data, me, direction):
   my_length = len(me['body'])
   my_head = me['body'][0]
   if direction == 'left':
+    if is_safe(data, my_head['x']-1, my_head['y']) and not is_safe(data, my_head['x']-2, my_head['y']) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']-1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'right':
+    if is_safe(data, my_head['x']+1, my_head['y']) and not is_safe(data, my_head['x']+2, my_head['y']) and not is_safe(data, my_head['x']+1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']+x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'down':
+    if is_safe(data, my_head['x'], my_head['y']+1) and not is_safe(data, my_head['x'], my_head['y']+2) and not is_safe(data, my_head['x']-1, my_head['y']+1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']+y):
           available_space = available_space + 1
   else:
+    if is_safe(data, my_head['x'], my_head['y']-1) and not is_safe(data, my_head['x'], my_head['y']-2) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']-1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
@@ -46,21 +58,33 @@ def has_some_room(data, me, direction):
   my_length = len(me['body'])
   my_head = me['body'][0]
   if direction == 'left':
+    if is_safe(data, my_head['x']-1, my_head['y']) and not is_safe(data, my_head['x']-2, my_head['y']) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']-1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'right':
+    if is_safe(data, my_head['x']+1, my_head['y']) and not is_safe(data, my_head['x']+2, my_head['y']) and not is_safe(data, my_head['x']+1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']+x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'down':
+    if is_safe(data, my_head['x'], my_head['y']+1) and not is_safe(data, my_head['x'], my_head['y']+2) and not is_safe(data, my_head['x']-1, my_head['y']+1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']+y):
           available_space = available_space + 1
   else:
+    if is_safe(data, my_head['x'], my_head['y']-1) and not is_safe(data, my_head['x'], my_head['y']-2) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']-1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
@@ -74,21 +98,33 @@ def has_half_room(data, me, direction):
   my_length = len(me['body'])
   my_head = me['body'][0]
   if direction == 'left':
+    if is_safe(data, my_head['x']-1, my_head['y']) and not is_safe(data, my_head['x']-2, my_head['y']) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']-1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'right':
+    if is_safe(data, my_head['x']+1, my_head['y']) and not is_safe(data, my_head['x']+2, my_head['y']) and not is_safe(data, my_head['x']+1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for x in range(1,int(my_length/2)):
       for y in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']+x, my_head['y']-y):
           available_space = available_space + 1
   elif direction == 'down':
+    if is_safe(data, my_head['x'], my_head['y']+1) and not is_safe(data, my_head['x'], my_head['y']+2) and not is_safe(data, my_head['x']-1, my_head['y']+1) and not is_safe(data, my_head['x']+1, my_head['y']+1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']+y):
           available_space = available_space + 1
   else:
+    if is_safe(data, my_head['x'], my_head['y']-1) and not is_safe(data, my_head['x'], my_head['y']-2) and not is_safe(data, my_head['x']-1, my_head['y']-1) and not is_safe(data, my_head['x']+1, my_head['y']-1):
+        return False
+
     for y in range(1,int(my_length/2)):
       for x in range(int(my_length/2)*-1,int(my_length/2)):
         if is_safe(data, my_head['x']-x, my_head['y']-y):
